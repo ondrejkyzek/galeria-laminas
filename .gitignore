@@ -6,4 +6,4 @@ data/cache/*
 phpunit.xml
 .phpunit.result.cache
 public/uploads/
-/nbproject/
+nbproject/
