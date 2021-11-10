@@ -1,0 +1,51 @@
+<?php
+/**
+ * @var Laminas\View\Renderer\PhpRenderer $this
+ */
+$form = $this->form;
+$form->setAttribute('action', $this->url('add'));
+$form->prepare();
+$fileElement = $form->get('image');
+?>
+<div class="container">
+    <h3>Pridať foto</h3>
+    <div class="row">
+        <?= $this->form()->openTag($form) ?>
+
+        <?php /*
+        <!-- name field-->
+        <div class="mb-3">
+            <?= $this->formLabel($form->get('name')); ?>
+            <div class="form-group">
+                <?= $this->formText($form->get('name')) ?>
+            </div>
+            <div class="text-danger">
+                <?= $this->formElementErrors($form->get('name')) ?>
+            </div>
+        </div> */ ?>
+        
+        <div class="form-element">
+            <?= $this->formLabel($fileElement) ?>
+            <?= $this->formFile($fileElement) ?>
+            <?= $this->formElementErrors($fileElement) ?>
+        </div>
+
+        <!-- submit and crsf-->
+        <div class="mb-3">
+            <?= $this->formHidden($form->get('csrf')); ?>
+            <div class="text-danger">
+                <?= $this->formElementErrors($form->get('csrf')); ?>
+            </div>
+            <?= $this->formSubmit($form->get('create_button')); ?>
+        </div>
+
+        <!-- close form tag -->
+        <?= $this->form()->closeTag(); ?>        
+
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,34 @@
+<?php
+
+?>
+<div class="container">
+    <?php if ($this->error) { ?>
+        <div class="text-danger text-center"><?= $this->error ?></div>
+    <?php } //end if ?>
+    <?php if ($this->info) { ?>
+        <div class="text-success text-center"><?= $this->info ?></div>
+    <?php } //end if ?>
+    
+    <?php 
+    foreach ($this->images as $image) { 
+        $url = $this->imageDir.'/'.$image;
+    ?>
+       <div class="row">
+           <div class="col-10">        
+               <a href="<?= $url ?>" target="_blank">
+                  <img src="<?= $url ?>" alt="foto" style="max-height: 200px; max-width: 80%;" />
+                  <br/>
+                  <?= $image ?>
+               </a>
+           </div>
+           <div class="col-2">   
+               <a href="?delete=<?= $image ?>" style="float: right">
+                   x vymazať
+               </a>
+
+           </div>
+       </div>
+    <?php } //end foreach ?>
+</div>
+
+
