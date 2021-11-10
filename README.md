@@ -1,0 +1,2 @@
+# galeria-laminas
+domaca uloha
