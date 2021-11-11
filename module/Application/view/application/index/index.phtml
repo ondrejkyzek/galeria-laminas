@@ -1,5 +1,6 @@
 <?php
 $script = <<<EOT
+        
   $(function() {
     $('#deleteModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
@@ -12,6 +13,7 @@ $script = <<<EOT
         modal.find('#delete-link').attr('href', '?delete=' + filename);
     })
   });
+        
 EOT;
 $this->inlineScript()->appendScript($script);
 //mohlo by to byt aj v subore potom
