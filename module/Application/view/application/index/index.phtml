@@ -50,6 +50,33 @@ $this->inlineScript()->appendScript($script);
             </div>
         </div>
     <?php } //end foreach  ?>
+
+
+    <?php if ($this->images)  { ?> 
+    <h4>Carousel</h4>
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <?php
+                foreach ($this->images as $key => $image) {
+                    $url = $this->imageDir . '/' . $image;
+                    $active = $key === array_key_first($this->images) ? 'active' : '';
+                    ?>
+                    <div class="carousel-item <?= $active ?>">
+                        <img src="<?= $url ?>" class="d-block w-100" alt="<?= $image ?>">
+                    </div>
+            <?php } //end foreach  ?>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div> 
+    <?php } //end if  ?>
+    
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
