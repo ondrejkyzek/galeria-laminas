@@ -1,34 +1,70 @@
 <?php
-
+$script = <<<EOT
+  $(function() {
+    $('#deleteModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var filename = button.data('filename') // Extract info from data-* attributes
+        console.log('filename', filename);
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this);
+        modal.find('#delete-image-label').text(filename);
+        modal.find('#delete-link').attr('href', '?delete=' + filename);
+    })
+  });
+EOT;
+$this->inlineScript()->appendScript($script);
+//mohlo by to byt aj v subore potom
+//$this->inlineScript()->appendFile('/script.js');
 ?>
 <div class="container">
     <?php if ($this->error) { ?>
         <div class="text-danger text-center"><?= $this->error ?></div>
-    <?php } //end if ?>
+    <?php } //end if  ?>
     <?php if ($this->info) { ?>
         <div class="text-success text-center"><?= $this->info ?></div>
-    <?php } //end if ?>
-    
-    <?php 
-    foreach ($this->images as $image) { 
-        $url = $this->imageDir.'/'.$image;
-    ?>
-       <div class="row">
-           <div class="col-10">        
-               <a href="<?= $url ?>" target="_blank">
-                  <img src="<?= $url ?>" alt="foto" style="max-height: 200px; max-width: 80%;" />
-                  <br/>
-                  <?= $image ?>
-               </a>
-           </div>
-           <div class="col-2">   
-               <a href="?delete=<?= $image ?>" style="float: right">
-                   x vymazať
-               </a>
+    <?php } //end if  ?>
 
-           </div>
-       </div>
-    <?php } //end foreach ?>
+    <?php
+    foreach ($this->images as $image) {
+        $url = $this->imageDir . '/' . $image;
+        ?>
+        <div class="row">
+            <div class="col-10">        
+                <a href="<?= $url ?>" target="_blank">
+                    <img src="<?= $url ?>" alt="foto" style="max-height: 200px; max-width: 80%;" />
+                    <br/>
+                    <?= $image ?>
+                </a>
+            </div>
+            <div class="col-2">   
+                <button type="button" 
+                        style="float: right"
+                        class="btn btn-danger" 
+                        data-toggle="modal" 
+                        data-target="#deleteModal" 
+                        data-filename="<?= $image ?>"><span aria-hidden="true">&times;</span> vymazať</button>
+
+            </div>
+        </div>
+    <?php } //end foreach  ?>
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Vymazať</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    Naozaj chcete vymazať obrázok <span id="delete-image-label"></span> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zrušiť</button>
+                    <a href="#" type="button" class="btn btn-danger" id="delete-link">Vymazať</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
